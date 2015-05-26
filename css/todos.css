@@ -69,8 +69,7 @@ body {
 
 #todo-list li {
 	padding: 18px 20px 18px 0;
-	position: relative;
-	font-size: 24px;
+	position: relative;	
 	border-bottom: 1px solid #cccccc;
 }
 
@@ -112,22 +111,39 @@ body {
 	margin-bottom: -1px;
 }
 
-#todo-list li.editing .edit {
+#todo-list li.editing .edit_name {
+	display: block;
+	width: 444px;
+	padding: 13px 15px 14px 20px;
+	margin: 0;
+}
+#todo-list li.editing .edit_snippet{
 	display: block;
 	width: 444px;
 	padding: 13px 15px 14px 20px;
 	margin: 0;
 }
 
-#todo-list li.editing .view {
+#todo-list li.editing .role_snippet{
+	display: none;
+}
+#todo-list li.editing .role_name{
 	display: none;
 }
 
-#todo-list li .view label {
+#todo-list li .role_name label {
 	word-break: break-word;
+	font-size: 20px;
+}
+#todo-list li .role_snippet label {
+	word-break: break-word;
+	font-size: 15px;
 }
 
-#todo-list li .edit {
+#todo-list li .edit_name {
+	display: none;
+}
+#todo-list li .edit_snippet{
 	display: none;
 }
 

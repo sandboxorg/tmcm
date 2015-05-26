@@ -10,4 +10,4 @@ requirejs(["json2"]);
 requirejs(["underscore"]);
 requirejs(["backbone"]);
 requirejs(["backbone.localStorage"]);
-requirejs(["app/todos"]);
+requirejs(["app/roles_view"]);
