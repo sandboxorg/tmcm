@@ -1,4 +1,5 @@
  $(function(){
+   
   var Role = Backbone.Model.extend({
 
     // Default attributes for the todo item.
@@ -15,7 +16,7 @@
     }
   });
   
-  var RoleList = Backbone.Collection.extend( {
+  var GlobalRoleList = Backbone.Collection.extend( {
 
     // Reference to this collection's model.
     model: Role,
@@ -28,22 +29,37 @@
     // Todos are sorted by their original insertion order.
     comparator: 'id'
 
-  }); 
-  
-  
-  var Roles = new RoleList;
+  });
+   
+   var ClubRoleList = Backbone.Collection.extend({
+    
+    
+    // Reference to this collection's model.
+    model: Role,
+    
+    //url:'js/app/roles.json',
+    
+    // Save all of the todo items under the `"todos-backbone"` namespace.
+    localStorage: new Backbone.LocalStorage("ClubRoles-TMCM"),
+    
+    // Todos are sorted by their original insertion order.
+    comparator: 'id'
+    
+    });
+   
+  var Roles = new ClubRoleList;
 
   // Todo Item View
   // --------------
 
   // The DOM element for a todo item...
-  var RoleView = Backbone.View.extend({
+  var ClubRoleView = Backbone.View.extend({
 
     //... is a list tag.
     tagName:  "li",
 
     // Cache the template function for a single item.
-    template: _.template($('#item-template').html()),
+    template: _.template($('#clubrole-item-template').html()),
 
     // The DOM events specific to an item.
     events: {
@@ -51,8 +67,10 @@
 	  //"dblclick .role_snippet"  : "edit",
 	  "click a.edit" : "edit",
       "click a.destroy" : "clear",
-      "keypress .edit_name"  : "updateOnEnter",
-      "blur .edit_name"      : "close"
+      "click a.done" : "update",
+      "click a.cancel" : "close",
+      //"keypress .edit_name"  : "update",
+      //"blur .edit_name"      : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -79,15 +97,27 @@
 
     // Close the `"editing"` mode, saving changes to the todo.
     close: function() {
-      var value = this.input.val();
-      if (!value) {
+      //var value = this.input.val();
+      //if (!value) {
         //this.clear();
-		this.$el.removeClass("editing");
-      } else {
-        this.model.save({name: value});
+		//this.$el.removeClass("editing");
+     // } else {
+        //this.model.save({name: value});
         this.$el.removeClass("editing");
 		console.log("exit");
-      }
+     // }
+    },
+                                          
+    update: function(){
+       console.log("updating");
+       var RoleName=this.$('.edit_name').val();
+       var RoleSnippet=this.$('.edit_snippet').val();
+       //var name=this.$('.edit_name').val();
+      
+
+       this.model.save({name: RoleName, snippet:RoleSnippet});
+       //this.model.save({name: RoleName});
+       this.close();
     },
 
     // If you hit `enter`, we're through editing the item.
@@ -113,7 +143,7 @@
     el: $("#todoapp"),
 
     // Our template for the line of statistics at the bottom of the app.
-    statsTemplate: _.template($('#stats-template').html()),
+    //statsTemplate: _.template($('#stats-template').html()),
 
     // Delegated events for creating new items, and clearing completed ones.
     events: {
@@ -131,7 +161,7 @@
       this.listenTo(Roles, 'reset', this.addAll);
       this.listenTo(Roles, 'all', this.render);
 
-      this.footer = this.$('footer');
+      //this.footer = this.$('footer');
       this.main = $('#main');
 
       Roles.fetch();
@@ -143,18 +173,18 @@
 
       if (Roles.length) {
         this.main.show();
-        this.footer.show();
-        this.footer.html(this.statsTemplate());
+        //this.footer.show();
+        //this.footer.html(this.statsTemplate());
       } else {
         this.main.hide();
-        this.footer.hide();
+        //this.footer.hide();
       }
     },
 
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
     addOne: function(role) {
-      var view = new RoleView({model: role});
+      var view = new ClubRoleView({model: role});
       this.$("#todo-list").append(view.render().el);
     },
 
@@ -168,8 +198,15 @@
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       if (!this.input.val()) return;
-
-      Roles.create({name: this.input.val()});
+      var RoleID=Number(window.localStorage["ClubRoleID-TMCM"]);
+       if(RoleID){
+          RoleID = RoleID + 1;
+          window.localStorage["ClubRoleID-TMCM"] = RoleID;
+       }else{
+          window.localStorage["ClubRoleID-TMCM"] = 20;
+          RoleID = 20;
+       }
+      Roles.create({name: this.input.val(),id:RoleID});
       this.input.val('');
     }
 

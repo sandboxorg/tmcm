@@ -40,6 +40,7 @@ body {
 #todoapp input[type="text"] {
 	width: 466px;	
 	font-family: inherit;
+    font-size:25px;
 	line-height: 1.4em;
 	border: 0;
 	outline: none;
@@ -119,8 +120,46 @@ body {
   	background-position: 0 -20px;
 }
 
+#todo-list .done {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url(icon_done.png) no-repeat;
+}
+
+#todo-list li.editing:hover .done {
+    display: block;
+}
+
+#todo-list li.editing .done:hover {
+    background-position: 0 -20px;
+}
+
+#todo-list .cancel {
+    position: absolute;
+    right: 5px;
+    top: 20px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url(icon_cancel.png) no-repeat;
+}
+
+#todo-list li.editing:hover .cancel{
+    display: block;
+}
+
+#todo-list li.editing .cancel:hover {
+    background-position: 0 -20px;
+}
+
 #todo-list li.editing {
-	border-bottom: none;
+	border-bottom: 1px solid #cccccc;
 	margin-top: -1px;
 	padding: 0;
 }
@@ -131,16 +170,16 @@ body {
 
 #todo-list li.editing .edit_name {
 	display: block;
-	width: 444px;
+	width: 410px;
 	/*padding: 13px 15px 14px 20px;*/
-	margin: 0;
+	margin: 2px 0 2px 0;
 	font-size: 20px;
 }
 #todo-list li.editing .edit_snippet{
 	display: block;
-	width: 444px;
+	width: 464px;
 	/*padding: 13px 15px 14px 20px;*/
-	margin: 0;
+	margin: 2px 0 2px 0;
 	font-size: 15px;
 }
 
