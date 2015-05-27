@@ -47,10 +47,12 @@
 
     // The DOM events specific to an item.
     events: {
-      "dblclick .view"  : "edit",
+      //"dblclick .role_name"  : "edit",
+	  //"dblclick .role_snippet"  : "edit",
+	  "click a.edit" : "edit",
       "click a.destroy" : "clear",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
+      "keypress .edit_name"  : "updateOnEnter",
+      "blur .edit_name"      : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
@@ -64,24 +66,27 @@
     // Re-render the titles of the todo item.
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      this.input = this.$('.edit');
+      this.input = this.$('.edit_name');
       return this;
     },
 
     // Switch this view into `"editing"` mode, displaying the input field.
     edit: function() {
-      this.$el.addClass("editing");
-      this.input.focus();
+		console.log("editing");
+        this.$el.addClass("editing");
+        this.input.focus();
     },
 
     // Close the `"editing"` mode, saving changes to the todo.
     close: function() {
       var value = this.input.val();
       if (!value) {
-        this.clear();
+        //this.clear();
+		this.$el.removeClass("editing");
       } else {
         this.model.save({name: value});
         this.$el.removeClass("editing");
+		console.log("exit");
       }
     },
 

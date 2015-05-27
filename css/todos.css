@@ -38,8 +38,7 @@ body {
 }
 
 #todoapp input[type="text"] {
-	width: 466px;
-	font-size: 24px;
+	width: 466px;	
 	font-family: inherit;
 	line-height: 1.4em;
 	border: 0;
@@ -90,7 +89,7 @@ body {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-	background: url(destroy.png) no-repeat;
+	background: url(icon_delete.gif) no-repeat;
 }
 
 #todo-list li:hover .destroy {
@@ -98,6 +97,25 @@ body {
 }
 
 #todo-list .destroy:hover {
+  	background-position: 0 -20px;
+}
+
+#todo-list .edit {
+	position: absolute;
+	right: 25px;
+	top: 20px;
+	display: none;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: url(icon_edit.gif) no-repeat;
+}
+
+#todo-list li:hover .edit{
+  	display: block;
+}
+
+#todo-list .edit:hover {
   	background-position: 0 -20px;
 }
 
@@ -114,14 +132,16 @@ body {
 #todo-list li.editing .edit_name {
 	display: block;
 	width: 444px;
-	padding: 13px 15px 14px 20px;
+	/*padding: 13px 15px 14px 20px;*/
 	margin: 0;
+	font-size: 20px;
 }
 #todo-list li.editing .edit_snippet{
 	display: block;
 	width: 444px;
-	padding: 13px 15px 14px 20px;
+	/*padding: 13px 15px 14px 20px;*/
 	margin: 0;
+	font-size: 15px;
 }
 
 #todo-list li.editing .role_snippet{
